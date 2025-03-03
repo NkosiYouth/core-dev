@@ -1,0 +1,37 @@
+name: Deploy Odoo Custom Modules
+
+on:
+  push:
+    branches:
+      - dev  # Runs on the 'dev' branch push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup SSH and Deploy
+      env:
+        PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        HOST: your-ec2-public-ip
+        USER: ubuntu
+      run: |
+        # Save the private key
+        echo "$PRIVATE_KEY" > private_key.pem
+        chmod 600 private_key.pem
+        
+        # Create SSH folder and known_hosts file to prevent host authenticity prompts
+        mkdir -p ~/.ssh
+        ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+        
+        # Ensure the target directory exists on the EC2 instance
+        ssh -i private_key.pem $USER@$HOST "mkdir -p /opt/custom_addons"
+        
+        # Transfer custom modules to the EC2 instance
+        scp -i private_key.pem -r ./custom_addons $USER@$HOST:/opt/custom_addons
+        
+        # Restart Odoo service
+        ssh -i private_key.pem $USER@$HOST "sudo systemctl restart odoo"
