@@ -3,7 +3,7 @@ name: Deploy Odoo Custom Modules
 on:
   push:
     branches:
-      - dev  # Runs when changes are pushed to the 'dev' branch
+      - dev  # Runs when changes are pushed to 'dev' branch
 
 jobs:
   deploy:
@@ -13,42 +13,39 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Debug Directory Structure
-      run: ls -lah  # Debug to check if custom_addons exists
-
-    - name: Ensure custom_addons exists locally
-      run: mkdir -p custom_addons  # Ensure directory exists to prevent errors
+    - name: Debug Files in custom_addons (Local)
+      run: ls -lah custom_addons || echo "custom_addons directory does not exist!"
 
     - name: Setup SSH and Deploy
       env:
         PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         HOST: 3.70.128.12  # Replace with your actual EC2 public IP
-        USER: ubuntu
+        USER: odoo  # Use "odoo" user since it's the owner of /opt/custom_addons
       run: |
         # Save the private key
         echo "$PRIVATE_KEY" > private_key.pem
         chmod 600 private_key.pem
         
-        # Create SSH folder and known_hosts file to prevent host authenticity prompts
+        # Create SSH folder and known_hosts file
         mkdir -p ~/.ssh
         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
         
-        # Ensure the target directory exists on the EC2 instance
+        # Ensure the target directory exists on EC2 and has correct permissions
         ssh -i private_key.pem $USER@$HOST "sudo mkdir -p /opt/custom_addons && sudo chown -R odoo:odoo /opt/custom_addons"
-        
-        # Debugging: List files before transferring
-        echo "Checking if custom_addons exists:"
-        ls -lah custom_addons || echo "custom_addons directory is missing!"
 
-        # Transfer custom modules to the correct path in EC2
-        if [ -d "custom_addons" ]; then
-          scp -i private_key.pem -r custom_addons/* $USER@$HOST:/opt/custom_addons
-        else
-          echo "custom_addons directory does not exist! Exiting..."
+        # Debugging: Check if custom_addons contains files before transfer
+        if [ -z "$(ls -A custom_addons)" ]; then
+          echo "custom_addons is empty! Exiting..."
           exit 1
         fi
 
-        # Set the correct permissions after transfer
+        # Transfer custom modules to EC2 (Use `rsync` instead of `scp` for reliability)
+        rsync -avz -e "ssh -i private_key.pem" custom_addons/ $USER@$HOST:/opt/custom_addons/
+
+        # Debug Files in custom_addons (Remote)
+        ssh -i private_key.pem $USER@$HOST "ls -lah /opt/custom_addons || echo 'custom_addons not found on server'"
+
+        # Set correct ownership after transfer
         ssh -i private_key.pem $USER@$HOST "sudo chown -R odoo:odoo /opt/custom_addons"
         
         # Restart Odoo service
