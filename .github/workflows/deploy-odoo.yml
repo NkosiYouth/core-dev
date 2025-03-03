@@ -14,10 +14,10 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Debug Directory Structure
-      run: ls -lah
+      run: ls -lah  # Debug to check if custom_addons exists
 
     - name: Ensure custom_addons exists locally
-      run: mkdir -p custom_addons
+      run: mkdir -p custom_addons  # Ensure directory exists to prevent errors
 
     - name: Setup SSH and Deploy
       env:
@@ -36,9 +36,18 @@ jobs:
         # Ensure the target directory exists on the EC2 instance
         ssh -i private_key.pem $USER@$HOST "sudo mkdir -p /opt/custom_addons && sudo chown -R odoo:odoo /opt/custom_addons"
         
+        # Debugging: List files before transferring
+        echo "Checking if custom_addons exists:"
+        ls -lah custom_addons || echo "custom_addons directory is missing!"
+
         # Transfer custom modules to the correct path in EC2
-        scp -i private_key.pem -r ./custom_addons/* $USER@$HOST:/opt/custom_addons
-        
+        if [ -d "custom_addons" ]; then
+          scp -i private_key.pem -r custom_addons/* $USER@$HOST:/opt/custom_addons
+        else
+          echo "custom_addons directory does not exist! Exiting..."
+          exit 1
+        fi
+
         # Set the correct permissions after transfer
         ssh -i private_key.pem $USER@$HOST "sudo chown -R odoo:odoo /opt/custom_addons"
         
