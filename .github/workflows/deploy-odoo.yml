@@ -3,7 +3,7 @@ name: Deploy Odoo Custom Modules
 on:
   push:
     branches:
-      - dev  # Runs on the 'dev' branch push
+      - dev  # Runs when changes are pushed to the 'dev' branch
 
 jobs:
   deploy:
@@ -13,10 +13,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Debug Directory Structure
+      run: ls -lah
+
+    - name: Ensure custom_addons exists locally
+      run: mkdir -p custom_addons
+
     - name: Setup SSH and Deploy
       env:
         PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        HOST: 3.70.128.12
+        HOST: 3.70.128.12  # Replace with your actual EC2 public IP
         USER: ubuntu
       run: |
         # Save the private key
@@ -28,10 +34,13 @@ jobs:
         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
         
         # Ensure the target directory exists on the EC2 instance
-        ssh -i private_key.pem $USER@$HOST "mkdir -p /opt/custom_addons"
+        ssh -i private_key.pem $USER@$HOST "sudo mkdir -p /opt/custom_addons && sudo chown -R odoo:odoo /opt/custom_addons"
         
-        # Transfer custom modules to the EC2 instance
-        scp -i private_key.pem -r ./custom_addons $USER@$HOST:/opt/custom_addons
+        # Transfer custom modules to the correct path in EC2
+        scp -i private_key.pem -r ./custom_addons/* $USER@$HOST:/opt/custom_addons
+        
+        # Set the correct permissions after transfer
+        ssh -i private_key.pem $USER@$HOST "sudo chown -R odoo:odoo /opt/custom_addons"
         
         # Restart Odoo service
         ssh -i private_key.pem $USER@$HOST "sudo systemctl restart odoo"
