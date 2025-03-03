@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="wt_sms_composer_view_form" model="ir.ui.view">
+        <field name="name">sms.composer.view.form</field>
+        <field name="model">sms.composer</field>
+        <field name="inherit_id" ref="sms.sms_composer_view_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='mass_keep_log']" position="after">
+        		<field name="is_simcloud_api"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

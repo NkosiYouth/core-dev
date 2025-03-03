@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hr_employee_filter_inherit" model="ir.ui.view">
+            <field name="name">view.hr.employee.filter.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='name']" position="attributes">
+                    <attribute name="string">User</attribute>
+                </xpath>                   
+                <xpath expr="//tree/field[@name='activity_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                
+                <xpath expr="//tree/field[@name='activity_date_deadline']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>      
+                <xpath expr="//tree/field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>      
+
+                <xpath expr="//tree/field[@name='work_location_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>      
+
+                <xpath expr="//tree/field[@name='activity_user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                       
+                <xpath expr="//tree/field[@name='country_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                       
+                <xpath expr="//tree/field[@name='expense_manager_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                       
+                <xpath expr="//tree/field[@name='leave_manager_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                                      
+                <xpath expr="//tree/field[@name='work_email']" position="attributes">
+                    <attribute name="string">Email Address</attribute>
+                </xpath>                                                 
+                <xpath expr="//tree/field[@name='work_phone']" position="attributes">
+                    <attribute name="string">Secondary Number</attribute>
+                </xpath>                                                                                                                                      
+                <xpath expr="//tree/field[@name='work_phone']" position="before">
+                    <field name="mobile_phone" string="Primary Number"/>
+                </xpath>                                  
+                <xpath expr="//tree/field[@name='work_email']" position="after">
+                    <field name="user_roles_id" optional="show" string="User Role"/>
+                </xpath> 
+                <xpath expr="//tree/field[@name='work_email']" position="after">
+                    <field name="cohort_id" optional="show" string="Cohort"/>
+                </xpath>                                                                                                                                                      
+                	                                                
+                <xpath expr="//tree/field[@name='user_roles_id']" position="after">
+                    <field name="x_contract_month" optional="show"/>
+                </xpath>            
+            </field>
+        </record>
+
+
+        <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+            <field name="name">view.hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='skills_resume']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>        
+            
+                <xpath expr="//page[@name='site_visits']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('user_roles_id', '=', 4)]}</attribute>
+                </xpath>
+                
+                
+                <xpath expr="//page[@name='journey_new']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('user_roles_id', '=', 4)]}</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='session_tasks']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('user_roles_id', '=', 4)]}</attribute>
+                </xpath>
+                
+
+                <xpath expr="//page[@name='registers']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('user_roles_id', '=', 4)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

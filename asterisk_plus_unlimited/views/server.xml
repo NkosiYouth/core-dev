@@ -1,0 +1,13 @@
+<odoo>
+    <record model="ir.ui.view" id="asterisk_plus_server_unlimited_form">
+        <field name="name">asterisk_plus_server_unlimited_form</field>
+        <field name="model">asterisk_plus.server</field>
+        <field name="inherit_id" ref="asterisk_plus.asterisk_plus_server_form"/>
+        <field name="arch" type="xml">
+            <field name="agent_initialized" position="after">
+                <field name="agent_url"/>
+                <field name="agent_token" password="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

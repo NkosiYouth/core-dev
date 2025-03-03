@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="wt_hr_issue" name="HR Issue">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title pt40 pb40 o_colored_level" data-vcss="001"
+                    data-snippet="s_title" data-name="Title" style="background-image: none;">
+                    <div class="container s_allow_columns">
+                        <h1 style="text-align: center;">
+                            <font style="font-size: 62px;" class="o_default_snippet_text">HR Issues</font>
+                            <br />
+                        </h1>
+                    </div>
+                </section>
+                <section class="s_website_form pt16 pb16 o_colored_level" data-vcss="001"
+                    data-snippet="s_website_form" data-name="Form" style="background-image: none;">
+                    <div class="container">
+                        <form action="/website/form/" method="post" enctype="multipart/form-data"
+                            class="o_mark_required" data-mark="*" data-pre-fill="true"
+                            data-success-mode="redirect" data-success-page="/contactus-thank-you"
+                            data-model_name="project.task">
+                            <div class="s_website_form_rows row s_col_no_bgcolor">
+
+
+                                <div
+                                    class="s_website_form_field mb-3 col-12 s_website_form_model_required"
+                                    data-type="char" data-name="Field" data-visibility-condition=""
+                                    data-visibility-between="">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label"
+                                            style="width: 200px" for="oznrcqyet4sm">
+
+
+                                            <span class="s_website_form_label_content">Issue Title</span>
+
+
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+
+                                            <input type="text"
+                                                class="form-control s_website_form_input"
+                                                name="name" required="true" id="oznrcqyet4sm" />
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="s_website_form_field mb-3 col-12 s_website_form_model_required"
+                                    data-type="email" data-name="Field" data-visibility-condition=""
+                                    data-visibility-between="">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="o5vgpn7udykr">
+
+
+                                            <span class="s_website_form_label_content">Your Email</span>
+
+
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+
+                                            <input type="email"
+                                                class="form-control s_website_form_input"
+                                                name="email_from" required="true"
+                                                data-fill-with="email" id="o5vgpn7udykr" />
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-visibility-condition="" data-visibility-between=""
+                                    class="s_website_form_field mb-3 col-12" data-type="many2one"
+                                    data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="o37nmfmmbhdl">
+
+
+                                            <span class="s_website_form_label_content">User</span>
+                                            <span class="s_website_form_mark"> *</span>
+
+                                        </label>
+                                        <div class="col-sm">
+
+                                            <t t-set="hr_issue_youths"
+                                                t-value="request.env['hr.employee'].sudo().search([])" />
+                                            <select class="form-select s_website_form_input"
+                                                name="employee_id" id="o37nmfmmbhdl"
+                                                style="" required="">
+                                                <option value="" selected="selected">Select</option>
+                                                <t t-foreach="hr_issue_youths" t-as="youth">
+                                                    <option t-att-value="youth.id"
+                                                        >
+                                                        <t t-esc="youth.name" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-visibility-condition="" data-visibility-between=""
+                                    class="s_website_form_field mb-3 col-12" data-type="many2one"
+                                    data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="o37nmfmmbhdl">
+
+
+                                            <span class="s_website_form_label_content">Issue Reporter</span>
+                                            <span class="s_website_form_mark"> *</span>
+
+                                        </label>
+                                        <div class="col-sm">
+                                            <t t-set="hr_issue_reporter"
+                                                t-value="request.env['res.users'].sudo().search([])" />
+                                            <select class="form-select s_website_form_input"
+                                                name="issue_reporter_id" id="o37nmfmmbhdl"
+                                                style="">
+                                                <option value="" selected="selected">Select</option>
+                                                <t t-foreach="hr_issue_reporter" t-as="reporter" >
+                                                    <option t-att-value="reporter.id"
+                                                        >
+                                                        <t t-esc="reporter.name" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-visibility-condition="" data-visibility-between=""
+                                    class="s_website_form_field mb-3 col-12" data-type="many2one"
+                                    data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="o37nmfmmbhdl">
+
+
+                                            <span class="s_website_form_label_content">Office</span>
+                                            <span class="s_website_form_mark"> *</span>
+
+                                        </label>
+                                        <div class="col-sm">
+                                            <t t-set="offices"
+                                                t-value="request.env['office.office'].sudo().search([])" />
+                                            <select class="form-select s_website_form_input"
+                                                name="office_id" id="o37nmfmmbhdl"
+                                                style="">
+                                                <option value="" selected="selected">Select</option>
+                                                <t t-foreach="offices" t-as="office" >
+                                                    <option t-att-value="office.id"
+                                                        >
+                                                        <t t-esc="office.name" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-visibility-condition="" data-visibility-between=""
+                                    class="s_website_form_field mb-3 col-12 s_website_form_required"
+                                    data-type="selection" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class=" col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="oy75dtihahy">
+
+
+                                            <span class="s_website_form_label_content">Issue Type</span>
+
+
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+
+
+                                            <div
+                                                class="row s_col_no_resize s_col_no_bgcolor s_website_form_multiple"
+                                                data-name="issue_type" data-display="vertical">
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy0" name="issue_type"
+                                                            value="Absenteeism"
+                                                            data-fill-with="undefined" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy0">
+                                                            Absenteeism
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy1" name="issue_type"
+                                                            value="Late Coming" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy1">
+                                                            Late Coming
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy2" name="issue_type"
+                                                            value="Unauthorised Leave" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy2">
+                                                            Unauthorised Leave
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy3" name="issue_type"
+                                                            value="Absconscion" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy3">
+                                                            Absconscion
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy4" name="issue_type"
+                                                            value="Excessive and/or abuse of sick leave"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy4">
+                                                            Excessive and/or abuse of sick leave
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy5" name="issue_type"
+                                                            value="Dishonesty / fraudulent behaviour"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy5">
+                                                            Dishonesty / fraudulent behaviour
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy6" name="issue_type"
+                                                            value="Theft" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy6">
+                                                            Theft
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy7" name="issue_type"
+                                                            value="Negligence" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy7">
+                                                            Negligence
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy8" name="issue_type"
+                                                            value="Insubordination" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy8">
+                                                            Insubordination
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy9" name="issue_type"
+                                                            value="Bringing company name into disrepute"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy9">
+                                                            Bringing company name into disrepute
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy10" name="issue_type"
+                                                            value="Dereliction of duty" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy10">
+                                                            Dereliction of duty
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy11" name="issue_type"
+                                                            value="Abusive behaviour and/or harassment"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy11">
+                                                            Abusive behaviour and/or harassment
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy12" name="issue_type"
+                                                            value="Under the influence of alcohol and/or controlled substances"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy12">
+                                                            Under the influence of alcohol and/or
+                                                            controlled substances
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy13" name="issue_type"
+                                                            value="Breach of company policy &amp; procedures"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy13">
+                                                            Breach of company policy &amp;amp;
+                                                            procedures
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy14" name="issue_type"
+                                                            value="General misconduct" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy14">
+                                                            General misconduct
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy15" name="issue_type"
+                                                            value="Unhosted"
+                                                            data-fill-with="undefined" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy15">
+                                                            Unhosted
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="oy75dtihahy16" name="issue_type"
+                                                            value="Terminated by Host"
+                                                            data-fill-with="undefined" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="oy75dtihahy16">
+                                                            Terminated by Host
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-visibility-condition="" data-visibility-between=""
+                                    class="s_website_form_field mb-3 col-12 s_website_form_required"
+                                    data-type="selection" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class=" col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="o06qhc3t1ufsm">
+
+
+                                            <span class="s_website_form_label_content">Priority</span>
+
+
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+
+
+                                            <div
+                                                class="row s_col_no_resize s_col_no_bgcolor s_website_form_multiple"
+                                                data-name="issue_priority" data-display="vertical">
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="o06qhc3t1ufsm0"
+                                                            name="issue_priority" value="Low"
+                                                            data-fill-with="undefined" required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="o06qhc3t1ufsm0">
+                                                            Low
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="o06qhc3t1ufsm1"
+                                                            name="issue_priority" value="Medium"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="o06qhc3t1ufsm1">
+                                                            Medium
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="radio col-12 ">
+                                                    <div class="form-check">
+                                                        <input type="radio"
+                                                            class="s_website_form_input form-check-input"
+                                                            id="o06qhc3t1ufsm2"
+                                                            name="issue_priority" value="High"
+                                                            required="" />
+                                                        <label
+                                                            class="form-check-label s_website_form_check_label"
+                                                            for="o06qhc3t1ufsm2">
+                                                            High
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div data-visibility-condition="" data-visibility-between=""
+                                    class="s_website_form_field mb-3 col-12 s_website_form_required"
+                                    data-type="html" data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="o6kufnwac26o">
+
+
+                                            <span class="s_website_form_label_content">Issue Details</span>
+
+
+                                            <span class="s_website_form_mark"> *</span>
+                                        </label>
+                                        <div class="col-sm">
+
+                                            <textarea class="form-control s_website_form_input"
+                                                name="description" placeholder="" id="o6kufnwac26o"
+                                                rows="3" required="" />
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div
+                                    class="s_website_form_field mb-3 col-12    s_website_form_dnone"
+                                    data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label "
+                                            style="width: 200px">
+
+
+                                            <span class="s_website_form_label_content" />
+
+
+                                        </label>
+                                        <div class="col-sm">
+
+                                            <input type="hidden"
+                                                class="form-control s_website_form_input"
+                                                name="project_id" value="58" />
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-0 py-2 col-12 s_website_form_submit"
+                                    data-name="Submit Button">
+                                    <div style="width: 200px;" class="s_website_form_label" />
+                                    <a href="#" role="button"
+                                        class="btn btn-primary btn-lg s_website_form_send o_default_snippet_text">
+                                        Submit</a>
+                                    <span id="s_website_form_result" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

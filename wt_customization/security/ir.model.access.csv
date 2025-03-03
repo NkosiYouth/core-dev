@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+wt_customization.access_cohort_cohort,access_cohort_cohort,wt_customization.model_cohort_cohort,base.group_user,1,1,1,1
+wt_customization.access_session_session,access_session_session,wt_customization.model_session_session,base.group_user,1,1,1,1
+wt_customization.access_register_tickets,access_register_tickets,wt_customization.model_register_tickets,base.group_user,1,1,1,1
+wt_customization.access_business_business,access_business_business,wt_customization.model_business_business,base.group_user,1,1,1,1
+wt_customization.access_user_role,access_user_role,wt_customization.model_user_role,base.group_user,1,1,1,1
+wt_customization.access_journey_journey,access_journey_journey,wt_customization.model_journey_journey,base.group_user,1,1,1,1
+wt_customization.access_journey_session,access_journey_session,wt_customization.model_journey_session,base.group_user,1,1,1,1
+wt_customization.access_importer_youth,access_importer_youth,wt_customization.model_importer_youth,base.group_user,1,1,1,1
+wt_customization.access_import_youth,access_import_youth,wt_customization.model_import_youth,base.group_user,1,0,0,0
+wt_customization.access_update_weekly_register,access_update_weekly_register,wt_customization.model_update_weekly_register,base.group_user,1,1,1,1
+wt_customization.access_office_office,access_office_office,wt_customization.model_office_office,base.group_user,1,1,1,1

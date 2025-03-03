@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.filter.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">                    
+                    <group>
+                        <filter name="youth_company_type" string="Funder" domain="[('youth_company_type', '=', 'Funder')]" />
+                        <filter name="youth_company_type" string="Partner" domain="[('youth_company_type', '=', 'Partner')]"/>
+                        <filter name="youth_company_type" string="Host Site" domain="[('youth_company_type', '=', 'Host Site')]"/>
+                        <filter name="youth_company_type" string="Host Site &amp; Partner" domain="[('youth_company_type', '=', 'Host Site &amp; Partner')]"/>
+                    </group>
+                    <group>
+                        <filter name="youth_contact_type" string="Youth" domain="[('youth_contact_type', '=', 'Youth')]" />
+                        <filter name="youth_contact_type" string="Supervisor" domain="[('youth_contact_type', '=', 'Supervisor')]"/>
+                        <filter name="youth_contact_type" string="Provincial Coordinator" domain="[('youth_contact_type', '=', 'Provincial Coordinator')]"/>
+                        <filter name="youth_contact_type" string="Partner" domain="[('youth_contact_type', '=', 'Partner')]"/>
+                        <filter name="youth_contact_type" string="Next of Kin" domain="[('youth_contact_type', '=', 'Next of Kin')]"/>
+                        <filter name="youth_contact_type" string="Y@W Employee" domain="[('youth_contact_type', '=', 'Y@W Employee')]"/>
+                        <filter name="youth_contact_type" string="Contact" domain="[('youth_contact_type', '=', 'Contact')]"/>
+                    </group>       
+                    <group expand="0" name="group_by" string="Group By">
+                        <filter name="youth_company_type" string="Company Type" domain="[]" context="{'group_by' : 'youth_company_type'}"/>
+                        <filter name="youth_contact_type" string="Contact type" context="{'group_by': 'youth_contact_type'}"/>
+                        <filter name="bee_level" string="BEE Level" context="{'group_by': 'bee_level'}"/>
+                    </group>                
+
+
+                </xpath>
+
+
+                <xpath expr="//filter[@name='customer']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>     
+                <xpath expr="//filter[@name='supplier']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                    
+                <xpath expr="//filter[@name='salesperson']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                    
+                <xpath expr="//filter[@name='group_company']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                    
+                <xpath expr="//filter[@name='group_country']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                                    
+
+            </field>
+        </record>
+
+
+        <record id="view_res_partner_list_inherits" model="ir.ui.view">
+            <field name="name">view.res.partner.list.inherits</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                
+                
+                <xpath expr="//tree/field[@name='phone']" position="before">
+                    <field name="mobile" string="Primary Number" class="o_force_ltr" optional="show"/>
+                </xpath>
+                
+                <xpath expr="//tree/field[@name='email']" position="after">
+                    <field name="youth_contact_type" optional="show"/>
+                    <field name="youth_company_type" optional="show"/>
+                    <field name="sector_id" optional="show"/>
+                </xpath>
+
+                <xpath expr="//tree/field[@name='phone']" position="attributes">
+                    <attribute name="string">Secondary Number</attribute>
+                </xpath>                                                                                                
+
+                <xpath expr="//tree/field[@name='state_id']" position="attributes">
+                    <attribute name="string">Province</attribute>
+                </xpath>                                                                                                
+                <xpath expr="//tree/field[@name='state_id']" position="attributes">
+                    <attribute name="optional">Show</attribute>
+                </xpath>                                                                                                
+
+
+
+                <xpath expr="//tree/field[@name='activity_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='city']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='country_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                                
+                <xpath expr="//tree/field[@name='vat']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                                
+                <xpath expr="//tree/field[@name='category_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>                                
+                
+            </field>
+        </record>
+              
+
+    </data>
+</odoo>

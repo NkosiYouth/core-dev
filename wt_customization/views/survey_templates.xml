@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="question_for_user_selectionn" name="Question: for User Selection">
+	        <div class="o_survey_comment_container p-0">
+	            <div class="col-sm">
+	            	<t t-if="question.survey_type == 'youth_survey'">
+	                	<t t-set="employees" t-value="request.env['hr.employee'].search([('user_roles_id.name', '=', 'Youth')])" />
+	                </t>
+	                <t t-elif="question.survey_type == 'supervisor_survey'">
+	                	<t t-set="employees" t-value="request.env['hr.employee'].search([('user_roles_id', '=', 'Supervisor')])" />
+	                </t>
+	                <t t-elif="question.survey_type == 'y@w_employee_survey'">
+	                	<t t-set="employees" t-value="request.env['hr.employee'].search([('user_roles_id', '=', 'Y@W Employee')])" />
+	                </t>
+	                <t t-else="">
+                		<t t-set="employees" t-value="request.env['hr.employee'].sudo().search([])"/>
+	                </t>
+	                <select class="form-select s_website_form_input" t-att-name='question.id' t-att-data-question-type="question.question_type">
+	                    <t t-foreach="employees" t-as="employee">
+	                        <option t-att-value="employee.id" >
+	                            <t t-out="employee.name" />
+	                        </option>
+	                    </t>
+	                </select>
+	            </div>
+	        </div>
+	    </template>
+
+    	<template id="question_container_for_users" name="Survey Layout" inherit_id="survey.question_container">
+    		<xpath expr='//div[hasclass("o_survey_question_error")]' position="before">
+            	<t t-if="question.question_type == 'user_id'"><t t-call="wt_customization.question_for_user_selectionn"/></t>
+    		</xpath>
+    	</template>
+
+	</data>
+</odoo>

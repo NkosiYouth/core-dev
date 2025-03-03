@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="youthwork_user_role_form_view" model="ir.ui.view">
+            <field name="name">user.role.form.view</field>
+            <field name="model">user.role</field>
+            <field name="arch" type="xml">
+                <form string="User Role">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group> 
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="youthwork_user_role_tree_view" model="ir.ui.view">
+            <field name="name">user.role.tree.view</field>
+            <field name="model">user.role</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="youthwork_user_role_action" model="ir.actions.act_window">
+            <field name="name">User Role</field>
+            <field name="res_model">user.role</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Journey
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="user_role" 
+            name="User Role" 
+            action="wt_customization.youthwork_user_role_action" 
+            parent="hr.menu_human_resources_configuration" 
+            sequence="10"/>
+    </data>
+</odoo>

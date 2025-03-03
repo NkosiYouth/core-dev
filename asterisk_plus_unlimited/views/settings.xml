@@ -1,0 +1,14 @@
+<odoo>
+    <record id='asterisk_settings_unlimited_form' model='ir.ui.view'>
+        <field name='name'>asterisk_settings_unlimited_form</field>
+        <field name='model'>asterisk_plus.settings</field>
+        <field name="inherit_id" ref="asterisk_plus.asterisk_settings_form"/>
+        <field name='arch' type='xml'>
+            <page name="billing" position="replace">
+                <field name="is_registered" invisible="1"/>
+                <field name="is_subscribed" invisible="1"/>
+            </page>
+        </field>
+    </record>
+  
+</odoo>

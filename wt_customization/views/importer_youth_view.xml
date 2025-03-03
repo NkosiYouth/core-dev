@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="youthwork_importer_youth_form_view" model="ir.ui.view">
+            <field name="name">importer.youth.form.view</field>
+            <field name="model">importer.youth</field>
+            <field name="arch" type="xml">
+                <form string="Importer Youth">
+                    <sheet>
+                        <notebook>
+                            <!-- General Info -->
+                            <page string="General Information">
+                                <group>
+                                    <group>
+                                        <field name="funder"/>
+                                        <field name="matched_cohort"/>
+                                        <field name="id_number" required="1"/>
+                                        <field name="youth_name"/>
+                                        <field name="start_date"/>
+                                        <field name="end_date"/>
+                                        <field name="host_site"/>
+                                        <field name="private_phone"/>
+                                        <field name="private_email"/>
+                                        <field name="gender"/>
+                                        <field name="race"/>
+                                    </group>
+                                </group>
+                            </page>
+                            
+                            <!-- Employment Details -->
+                            <page string="Employment Details">
+                                <group>
+                                    <group>
+                                        <field name="sector"/>
+                                        <field name="manager"/>
+                                        <field name="partner"/>
+                                        <field name="linked_emergency_contact"/>
+                                        <field name="salary"/>
+                                        <field name="job_title"/>
+                                        <field name="title"/>
+                                        <field name="disabled"/>
+                                        <field name="drop_off_replacement"/>
+                                        <field name="absorption_indication"/>
+                                        <field name="is_active"/>
+                                        <field name="role"/>
+                                    </group>
+                                </group>
+                            </page>
+
+                            <!-- Import Status -->
+                            <page string="Import Status">
+                                <group>
+                                    <field name="is_imported" readonly="1"/>
+                                    <field name="fail_reason" readonly="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="youthwork_importer_youth_tree_view" model="ir.ui.view">
+            <field name="name">importer.youth.tree.view</field>
+            <field name="model">importer.youth</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="funder"/>
+                    <field name="youth_name"/>
+                    <field name="private_phone"/>
+                    <field name="private_email"/>
+                    <field name="id_number"/>
+                    <field name="race"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="role"/>
+                    <field name="matched_cohort"/>
+                    <field name="host_site"/>
+                    <field name="manager"/>
+                    <field name="salary"/>
+                    <field name="job_title"/>
+                    <field name="is_imported"/> <!-- Keep to track import status -->
+                    <field name="fail_reason"/> <!-- Keep to debug errors -->
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+
+        <record id="youthwork_importer_youth_action" model="ir.actions.act_window">
+            <field name="name">Youth Importer</field>
+            <field name="res_model">importer.youth</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Journey
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_import_youth">
+            <field name="name">Import Youth</field>
+            <field name="model_id" ref="model_importer_youth"/>
+            <field name="binding_model_id" ref="model_importer_youth"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">
+                records.import_youth()
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_importer_youth" 
+            name="Importer Youth" 
+            action="youthwork_importer_youth_action" 
+            parent="hr.menu_human_resources_configuration" 
+            sequence="50"/>
+    </data>
+</odoo>

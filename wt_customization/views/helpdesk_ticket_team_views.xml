@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="youthwork_helpdesk_ticket_team_inherit_form_view" model="ir.ui.view">
+            <field name="name">helpdesk_ticket__team_youtwork_view</field>
+            <field name="model">helpdesk.ticket.team</field>
+            <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//page[@name='members']" position="inside">
+            		<group string="Ticket Assignation">
+            			<group>
+            				<!-- <field name="ex_assigen_user_ids" widget="many2many_tags"/> -->
+            				<field name="assign_method" widget="radio"/>
+            				<field name="assign_online_users" widget="boolean_toggle"/>
+            				<field name="assign_limit" groups="base.group_no_one"/>
+            				<field name="assign_user_domain" widget="domain" options="{'model': 'res.users'}"/>
+                            <field name="stage_ids" widget="many2many_tags"/>
+            			</group>
+            			 <group>
+                            <div colspan="2" class="bs-callout bs-callout-info" style="padding: 20px; border-left-width: 5px !important; border-radius: 3px; border:1px solid">
+                                <h4>Automatic Assignation</h4>
+                                <p>Assign users to new tickets automatically. You also have the option to only assign tickets to users if the are online (i.e. logged into 1Stream CRM)</p>
+                            </div>
+                        </group>
+            		</group>
+            	</xpath>
+                <xpath expr="//field[@name='user_ids']" position="attributes">
+                    <attribute name="domain">[('share', '=', False)]</attribute>
+                </xpath>
+                <xpath expr="//page[@name='members']" position="after">
+                    <page name="service_level_times" string="Service Level Times"> 
+                        <group>
+                            <group>
+                                <field name="sla_response" widget="float_time"/>
+                                <field name="sla_resolve" widget="float_time" />
+                            </group>
+                            <group>
+                                <span colspan="2" class="text-muted">
+                                    <i class="fa fa-lightbulb-o"/> Take business hours into account when computing ticket SLAs
+                                </span>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

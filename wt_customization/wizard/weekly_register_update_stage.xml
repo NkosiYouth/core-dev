@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_import_weekly_register_wizard" model="ir.ui.view">
+        <field name="name">update.weekly.register.form</field>
+        <field name="model">update.weekly.register</field>
+        <field name="arch" type="xml">
+            <form string="Import Weekly Register">
+                <group>
+                    <field name="file" widget="binary"/>
+                </group>
+                <footer>
+                    <button name="action_import" type="object" string="Update" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_weekly_register" model="ir.actions.act_window">
+        <field name="name">Import Weekly Register</field>
+        <field name="res_model">update.weekly.register</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_import_weekly_register" name="Update Weekly Register"
+        parent="hr.menu_human_resources_configuration" action="action_import_weekly_register" sequence="50"/>
+
+
+</odoo>

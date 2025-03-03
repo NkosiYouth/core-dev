@@ -1,0 +1,15 @@
+<odoo>
+
+    <record id="asterisk_plus_phone_user_form" model="ir.ui.view">
+        <field name="name">asterisk_plus_phone_user_form</field>
+        <field name="model">asterisk_plus.user</field>
+        <field name="inherit_id" ref="asterisk_plus.asterisk_plus_user_form"/>
+        <field name="arch" type="xml">
+            <field name="call_popup_is_sticky" position="after">
+                <field name="phone_ring_volume" help="Phone ring volume in %, from 0 to 100."/>
+                <field name="mask_call_number" groups="asterisk_plus.group_asterisk_admin"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

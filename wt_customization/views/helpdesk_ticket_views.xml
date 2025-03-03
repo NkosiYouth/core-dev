@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="youthwork_helpdesk_ticket_inherit_form_view" model="ir.ui.view">
+            <field name="name">helpdesk_ticket_youtwork_view</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+            <field name="arch" type="xml">
+               
+                <xpath expr="//header" position="inside">
+                    <div attrs="{'invisible': [('team_id', 'in', [72, 73, 70, 84, 78, 77, 71, 74, 92, 76, 79, 93, 75])]}">
+                        <a href="https://odoo.sayouthatwork.com/create-leave" target="_blank" class="btn btn-primary">
+                            <i class="fa fa-fw fa-external-link"></i> Create Leave
+                        </a>
+                    </div>
+                    <field name="team_stage_ids" invisible="1"/>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" domain="[('id','in',team_stage_ids)]"/>
+                </xpath>
+                
+                <field name="stage_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="team_id" position="attributes">
+                    <attribute name="attrs">{'invisible':[('team_id','=',78)]}</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="attrs">{'invisible':[('team_id','=',78)]}</attribute>  
+                </field>
+
+                <!--<xpath expr="//group[@name='sla']" position="attributes">-->
+                <!--  <attribute name="attrs">{'invisible':[('team_id','=',78)]}</attribute>-->
+                <!--</xpath>-->
+
+                <field name="name" position="replace">
+                    <field name="name" placeholder="Job Description" attrs="{'invisible':[('team_id','!=',78)]}"/>
+                </field>
+                <field name="name" position="replace">
+                    <field name="name" placeholder="Title" attrs="{'invisible':[('team_id','=',78)]}"/>
+                </field>
+                
+                <field name="user_id" position="after">
+                    <field name="ticket_type" invisible="1"/>
+                    <field name="week_start" attrs="{'invisible': [('team_id', '!=',76)]}"/>
+                    <field name="week_end" attrs="{'invisible': [('team_id', '!=',76)]}"/>
+                </field>
+                
+                <!--<xpath expr="//page[@name='subtickets']" position="attributes">-->
+                <!--    <attribute name="attrs">{'invisible': ['|', '|', ('allow_subtickets', '=', False), ('parent_id', '!=', False), '&amp;', ('team_id', '=', 77), ('ticket_type', '!=', 'Partner')]}</attribute>-->
+                <!--</xpath>-->
+                
+                <!--<xpath expr="//button[@name='action_ticket_pending']" position="attributes">-->
+                <!--  <attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                
+                <field name="partner_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                
+                <field name="partner_email" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+
+                <field name="partner_name" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="project_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                
+                <!-- <field name="partner_phone" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field> -->
+                
+                <!--<page name="subtickets" position="attributes">-->
+                    <!--<attribute name="attrs">{'invisible': ['|', '|', ('allow_subtickets', '=', False), ('parent_id', '!=', False), '&', ('team_id', '=', 77), ('ticket_type', '!=', 'Partner')]}</attribute>-->
+                <!--</page>-->
+                
+                <field name="partner_id" position="before">
+                        <field name="partner_youth_id" string="User"/>
+                        <field name="cohort_name" string="Cohort"/>
+                        <!--<field name="issue_type" attrs="{'invisible': [('project_id', '!=', 58), ('project_id', '!=', 56), ('project_id', '!=', 66)]}"/>-->
+                        <field name="register_date" attrs="{'invisible': [('team_id', '!=', 72)]}"/>
+                        <field name="company_type" attrs="{'invisible': [('team_id', '!=', 77)]}"/>
+                        <field name="issue_type" attrs="{'invisible': [('team_id', 'not in', [79])]}"/>
+                        <field name="journey" invisible="1"/>
+                        <field name="session_id" attrs="{'invisible': [('journey', '!=', True)]}"/>
+                        <field name="session_link" attrs="{'invisible': [('journey', '!=', True)]}"/>
+                        <field name="project_id"/>
+                        <!--<field name="project_task_type_id" domain="[('id','in',project_task_stage_ids)]" invisible="1"/>-->
+                        <field name="project_task_stage_ids" invisible="1"/>
+                        <field name="my_activity_date_deadline" string="Deadline"/>
+                        <field name="has_approved" attrs="{'invisible': [('project_id', 'not in', [66, 18, 63])]}" readonly="1"/>
+                        <field name="has_declined" attrs="{'invisible': [('project_id', 'not in', [66, 18, 63])]}" readonly="1"/>
+                </field>
+
+                <field name="channel_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="product_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="create_date" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="company_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                
+                <field name="category_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="motive_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="tag_ids" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="priority" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="rating_status" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="sequence" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <xpath expr="//notebook/page[1]" position="after">
+                    <page name="registers" string="Linked Registers" attrs="{'invisible': [('team_id', '!=', 1),('team_id', '!=', 61), ('team_id', '!=', 62), ('team_id', '!=', 63), ('team_id', '!=', 64), ('team_id', '!=', 65), ('team_id', '!=', 66),('team_id', '!=', 67), ('team_id', '!=', 68), ('team_id', '!=', 69), ('team_id', '!=', 86)]}">
+                    <field name="register_ids">
+                        <tree editable="bottom">
+                          <field name="employee_id" required="1" options="{'no_create': True}" domain="[('user_roles_id', '=', 2)]"/>
+                          <field name="weekly_registers_id" required="1" domain="[('project_id', '=', 66), ('employee_id', '=', employee_id)]"/>
+                          <button type="object" name="open_popup" string="Open" icon="fa-edit"/>
+                        </tree>
+                    </field>
+                    </page>
+                    
+                    <page name="message_body" string="Message" attrs="{'invisible': [('team_id', '!=', 79),('team_id', '!=', 12), ('team_id', '!=', 70)]}">
+                    <!--<field name="allow_subtickets"/>
+                    <field name="parent_id"/>-->
+                        <field name="body" type="html"/>
+                    </page>
+                    
+                    <page name="host_site_visits" string="Youth Visit Tasks" attrs="{'invisible': [('project_id', '!=', 57)]}">
+                            <field name="youth_visit_task_ids">
+                                <tree string="Youth Tasks" editable="bottom">
+                                    <field name="name"/>
+                                    <field name="project_id" invisible="1"/>
+                                    <field name="company_id" invisible="1"/>
+                                    <field name="employee_id"/>
+                                    <field name="stage_id"/>
+                                    <button type="object" style="color:#000000; background-color:#F5A94E; width: 100px;" name="get_formview_action" string="Open" icon="fa-edit"/>
+                                </tree>
+                            </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//page[@name='other_info']" position="replace">
+                    <page name="other_info" string="Other Information">
+                        <group>
+                            <group string="TRACKING DATES">
+                                <field name="last_stage_update" />
+                                <field name="assigned_date" />
+                                <field name="response_date"/>
+                                <field name="closed_date" />
+                                <field name="resolve_date" invisible="1"/>
+                                <field name="sla_response_time_left"/>    
+                            </group>
+                            <group string="TRACKING TIMES">
+                                <field name="time_to_assign" widget="float_time" invisible="1"/>
+                                <field name="time_to_response" widget="float_time"/>
+                                <field name="time_to_resolve" widget="float_time"/>
+                                <field name="dummy_datetime" invisible="1"/>
+                                <div class="oe_text_center card p-3" colspan="2">
+                                    <span>
+                                        <field name="sla_resolve_state" invisible="1"/>
+                                        <i class="fa fa-lg fa-clock-o mr-1 text-info" title="Within SLA" attrs="{'invisible': [('sla_resolve_state', '!=', 'in_sla')]}" />
+                                        <i class="fa fa-lg fa-clock-o mr-1 text-warning" title="Due Soon" attrs="{'invisible': [('sla_resolve_state', '!=', 'due_soon')]}"/>
+                                        <i class="fa fa-lg fa-clock-o mr-1 text-danger" title="Out of SLA" attrs="{'invisible': [('sla_resolve_state', '!=', 'out_sla')]}"/>
+                                        Resolve this ticket by <field name="sla_resolve_date" class="oe_inline mb-0"/>
+                                        <br/>
+                                        <strong>Time Left:</strong> <field name="sla_resolve_date" widget="timer_start_field"/>
+                                    </span>
+                                </div>
+                                <div class="oe_text_center card p-3" colspan="2">
+                                    <span>
+                                        <field name="sla_response_state" invisible="1"/>
+                                        <i class="fa fa-lg fa-clock-o mr-1 text-info" title="Within SLA" attrs="{'invisible': [('sla_response_state', '!=', 'in_sla')]}" />
+                                        <i class="fa fa-lg fa-clock-o mr-1 text-warning" title="Due Soon" attrs="{'invisible': [('sla_response_state', '!=', 'due_soon')]}"/>
+                                        <i class="fa fa-lg fa-clock-o mr-1 text-danger" title="Out of SLA" attrs="{'invisible': [('sla_response_state', '!=', 'out_sla')]}"/>
+                                        Respond to this ticket by <field name="sla_response_date" class="oe_inline mb-0"/>
+                                        <br/>
+                                        <strong>Time Left:</strong> <field name="sla_response_date" widget="timer_start_field"/>
+                                    </span>
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                 
+                <field name="user_id" position="after">
+                    <span class="o_form_label o_td_label" attrs="{'invisible': [('project_id','!=',62)]}" name="address_name"><b>Address</b></span>
+                    <div class="o_address_format" attrs="{'invisible': [('project_id','!=',62)]}">
+                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                    <field name="city" placeholder="City" class="o_address_city"/>
+                    <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"/>
+                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                    <div name="partner_address_country" class="d-flex justify-content-between">
+                        <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                    </div>
+                    </div>
+                    
+                    <field name="daily_type" attrs="{'invisible': [('project_id', '!=', 56)]}"/>
+                    <field name="daily_attendance_status" attrs="{'invisible': [('project_id', '!=', 56)]}"/>
+                    <field name="daily_supervisor_id" attrs="{'invisible': [('project_id', '!=', 56)]}"/>
+                    <field name="daily_start_time" attrs="{'invisible': [('project_id', '!=', 56)]}"/>
+                    <field name="daily_end_time" attrs="{'invisible': [('project_id', '!=', 56)]}"/>
+                    <field name="daily_duties" attrs="{'invisible': [('project_id', '!=', 56)]}"/>
+                    <field name="cohorts_ids" widget="many2many_tags" attrs="{'invisible': [('project_id','!=',62)]}" invisible="1"/>
+                    <field name="female_ownership" attrs="{'invisible': [('project_id','!=',62)]}"/>
+                    <field name="business_size" attrs="{'invisible': [('project_id','!=',62)]}"/>
+                    <field name="sector_id" attrs="{'invisible': [('project_id','!=',62)]}"/>
+                    <!--<field name="register_doc" attrs="{'invisible': [('project_id', 'not in', [58, 63])]}"/>-->
+                    
+                    <field name="partner_id" />
+                    <field name="host_site_id"/>
+                    <field name="resignation_date" attrs="{'invisible': [('team_id','!=',70)]}"/>
+                    <field name="reason_for_resignation" attrs="{'invisible': [('team_id','!=',70)]}"/>
+                    <field name="resignation_letter" attrs="{'invisible': [('team_id','!=',70)]}"/>
+                    <field name="issue_priority" string="Priority" attrs="{'invisible': [('project_id','!=',58)]}"/>
+                    <field name="issue_reporter_id" attrs="{'invisible': [('project_id','!=',58)]}"/>
+                    <field name="issue_date_closed" attrs="{'invisible': [('project_id','!=',58)]}" readonly="1"/>
+                    <!-- <a href="/create-leave" >Create Leave</a> -->
+                </field>
+
+                <xpath expr="//field[@name='issue_priority']" position="after">
+                    <div attrs="{
+                            'invisible': [
+                                '|',
+                                ('project_id', 'not in', [63, 66]),
+                                ('team_id', 'not in', [62, 65, 86, 64, 61, 66, 67, 68, 69, 63])
+                            ]
+                        }">
+                        <a href="/create-leave" target="_blank">Create Leave</a>
+                    </div>
+                </xpath>
+
+                <xpath expr="//page[@name='other_info']" position="before">
+                    <page name="timesheet" string="Attendance Registers" attrs="{'invisible': [('project_id', 'not in', [66])]}">
+                        <field name="timesheet_ids">
+                            <tree editable="bottom" default_order="date asc">
+                                <field name="date" invisible="1"/>
+                                <field name="employee_id" widget="many2one_avatar_employee"/>
+                                <field name="name" string="Duties"/>
+                                <field name="date"/>
+                                <field name="daily_start_time"/>
+                                <field name="daily_end_time"/>
+                                <field name="daily_attendance_status"/>
+                                <field name="daily_leave_form"/>
+                                <field name="has_register_issues"/>
+                                <field name="unit_amount" string="Duration" widget="float_time"/>
+                            </tree>
+                        </field>    
+                    </page>
+                    <page name="issue_timesheet" string="Register Issue" attrs="{'invisible': [('project_id', '!=', 63)]}">
+                        <field name="issue_timesheet_ids">
+                            <tree editable="bottom" default_order="date asc">
+                                <field name="date" invisible="1"/>
+                                <field name="employee_id" widget="many2one_avatar_employee"/>
+                                <field name="name" string="Duties"/>
+                                <field name="date"/>
+                                <field name="daily_start_time"/>
+                                <field name="daily_end_time"/>
+                                <field name="daily_attendance_status"/>
+                                <field name="daily_leave_form"/>
+                                <field name="has_register_issues"/>
+                                <field name="unit_amount" string="Duration" widget="float_time"/>
+                            </tree>
+                        </field>    
+                    </page>
+                </xpath>
+            </field>
+           
+        </record>
+
+        <record id="youthwork_helpdesk_ticket_inherit_tree_view" model="ir.ui.view">
+            <field name="name">helpdesk_ticket_youtwork_tree_view</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='stage_id']" position="after">
+                    <field name="sla_response_state" optional="show" widget="badge"/>
+                    <field name="sla_resolve_state" optional="show" widget="badge" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_helpdesk_ticket_kanban_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.kanban.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_ticket_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//templates//field[@name='number']" position="after">
+                    <div class="oe_kanban_detail">
+                        <field name="youth_name"/>
+                    </div>
+                    <div class="oe_kanban_detail">
+                        <field name="cohort_name"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="view_import_youth_data_form" model="ir.ui.view">
+		    <field name="name">import.youth.form</field>
+		    <field name="model">import.youth</field>
+		    <field name="arch" type="xml">
+		        <form string="Import Youth">
+		           	<group>
+		           		<separator string="Import Youth"/>
+		           </group>
+		           <group>
+		           		<field name='file_path'/>
+		           	</group>
+		           	<footer>
+		           		<button name="do_import_youth_data" string="Import/Update" type="object" class="oe_highlight"/>
+		                or
+		                <button string="Cancel" class="oe_link" special="cancel" />
+		            </footer>
+		       </form>
+		    </field>
+		</record>
+
+	    <record model="ir.actions.act_window" id="action_import_youths">
+	        <field name="name">Import Youth</field>
+	        <field name="res_model">import.youth</field>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="view_import_youth_data_form"/>
+	        <field name="target">new</field>
+	    </record>
+
+    	<menuitem name="Import Youth" id="import_youth" parent="hr.menu_hr_root" sequence="4"/>
+
+    	<menuitem name="Import Youth" action="action_import_youths" id="menu_sub_import_youths" parent="wt_customization.import_youth" sequence="1"/>
+    </data>
+</odoo>

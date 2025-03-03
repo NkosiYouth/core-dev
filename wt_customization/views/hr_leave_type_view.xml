@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="youthwork_leave_type_form_view" model="ir.ui.view">
+        <field name="name">leave_type_youtwork_view</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//field[@name='company_id']" position="after">
+        		<field name="allows_negative"/>
+        		<field name="max_allowed_negative"/>
+        	</xpath>
+        </field>
+    </record>
+</odoo>

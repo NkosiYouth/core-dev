@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="youthwork_journey_form_view" model="ir.ui.view">
+            <field name="name">project.journey_youthwork_view</field>
+            <field name="model">journey.journey</field>
+            <field name="arch" type="xml">
+                <form string="Journey">
+                    <sheet>
+                        <!-- Journey Details -->
+                        <group>
+                            <field name="project_id" string="Journey Name" required="1"/>
+                        </group>
+
+                        <!-- Youth and Tasks Management -->
+                        <group>
+                            <field name="cohort_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True}" string="Cohorts"/>
+                            <field name="youth_ids" widget="many2many_tags" domain="[('user_roles_id', '=', 2)]" options="{'no_create': True, 'no_create_edit': True}" string="Youth"/>
+                            <field name="prev_youth_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="journey_task_ids" widget="many2many_tags" invisible="1" string="Journey Tasks"/>
+                        </group>
+
+                        <!-- Sessions -->
+                        <group string="Sessions">
+                            <field name="session_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="session_id"/>
+                                    <field name="name" string="Session Name" invisible="1"/>
+                                    <field name="session_type"/>
+                                    <field name="session_link" string="Session Link"/>
+                                    <field name="session_start"/>
+                                    <field name="session_deadline" string="Session Deadline"/>
+                                    <field name="session_duration" widget="float_time"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="youthwork_journey_tree_view" model="ir.ui.view">
+            <field name="name">project.journey_tree_youthwork_view</field>
+            <field name="model">journey.journey</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="project_id" string="Journey Name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="youthwork_journey_action" model="ir.actions.act_window">
+            <field name="name">Journey</field>
+            <field name="res_model">journey.journey</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Journey
+                </p>
+            </field>
+        </record>
+
+        <record id="youthwork_journey_session_form_view" model="ir.ui.view">
+            <field name="name">project.journey_session_youthwork_view</field>
+            <field name="model">journey.session</field>
+            <field name="arch" type="xml">
+                <form string="Journey Session">
+                    <sheet>
+                        <!-- Journey Details -->
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="youthwork_journey_session_tree_view" model="ir.ui.view">
+            <field name="name">project.journey_session_tree_youthwork_view</field>
+            <field name="model">journey.session</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="youthwork_journey_session_action" model="ir.actions.act_window">
+            <field name="name">Journey Sesison</field>
+            <field name="res_model">journey.session</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new Journey
+                </p>
+            </field>
+        </record>
+        <!-- Menu Item -->
+        <menuitem id="menu_journey" 
+                  name="Journey" 
+                  action="youthwork_journey_action" 
+                  parent="project.menu_project_config" 
+                  sequence="50"/>
+
+        <menuitem id="menu_journey_session" 
+                  name="Journey Session" 
+                  action="youthwork_journey_session_action" 
+                  parent="project.menu_project_config" 
+                  sequence="60"/>
+    </data>
+</odoo>

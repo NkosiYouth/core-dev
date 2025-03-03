@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template id="wt_portal_my_home_sale" customize_show="True" inherit_id="sale.portal_my_home_sale">
+		<xpath expr="//t[@t-call='portal.portal_docs_entry']" position="replace">
+		</xpath>
+		<xpath expr="//t[@t-call='portal.portal_docs_entry'][1]" position="replace">
+		</xpath>
+	</template>
+
+	<template id="hr_timesheet.portal_my_home_timesheet" name="Show Timesheets" customize_show="True"  inherit_id="portal.portal_my_home" priority="45">
+	</template>
+
+    <template id="account.portal_my_home_invoice" name="Show Invoices &amp; Bills" inherit_id="portal.portal_my_home" customize_show="True" priority="30">
+    </template>
+
+     <template id="project.portal_my_home" name="Show Projects / Tasks" customize_show="True" inherit_id="portal.portal_my_home" priority="40"></template>
+</odoo>

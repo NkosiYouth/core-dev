@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="youthwork_project_task_form_view" model="ir.ui.view">
+            <field name="name">project.task_youtwork_view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="milestone_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="replace">
+                    <field name="partner_task_id" widget="many2one" attrs="{'invisible': [('project_id', '!=', 62)]}" readonly="1"/>
+
+                    <field name="employee_id"/>
+                    <field name="company_type" attrs="{'invisible': [('project_id', '!=', 62)]}"/>
+                    
+                    
+                    <!-- Journey Fields -->
+                    <field name="cohort_id" attrs="{'invisible': [('project_id', '!=', 11),('project_id', '!=', 65),('project_id', '!=', 64),('project_id', '!=', 54)]}"/>
+                    <!-- <field name="start_date" attrs="{'invisible': [('project_id', 'in', [66,63,57])]}"/>
+                    <field name="end_date" attrs="{'invisible': [('project_id', 'in', [66,63,64,57])]}"/> -->
+                    <field name="is_journey" invisible="1"/>
+                    <field name="session_id" attrs="{'invisible': [('is_journey', '!=', True)]}"/>
+                    <field name="session_link" attrs="{'invisible': [('is_journey', '!=', True)]}"/>
+                    <field name="register_day" groups="base.group_no_one" attrs="{'invisible': [('project_id', '!=', 10)]}"/>
+                    <field name="register_date" attrs="{'invisible': [('project_id', '!=', 63)]}"/>
+                    <field name="issue_type" attrs="{'invisible': [('project_id', 'not in', [58])]}"/>
+                    <field name="register_day_summary" readonly="1" invisible="1" attrs="{'invisible': [('project_id', '!=', 10)]}"/>
+                  </field>
+                  
+                  <field name="user_ids" position="after">
+                    <!-- Youth Application-->
+                    <field name="vacancies" attrs="{'invisible': [('project_id', '!=', 65)]}"/>
+                    <field name="week" readonly="1" attrs="{'invisible': [('project_id', '!=', 10),('project_id', '!=',66)]}"/>
+                    <field name="week_start" attrs="{'invisible': [('project_id', '!=', 10),('project_id', '!=',66)]}"/>
+                    <field name="week_end" attrs="{'invisible': [('project_id', '!=', 10),('project_id', '!=',66)]}"/>
+                    <field name="register_doc" readonly="1" string="Register Doc" optional="hide" attrs="{'invisible': [('project_id', 'not in', [10, 63])]}"/>
+                    
+                <!-- HR Issues Fields -->
+                    <!--<field name="business_id" attrs="{'invisible': [('project_id', '!=',58)]}"/>-->
+
+                    <field name="partner_id" readonly="1" string="Partner"/>
+                    <field name="host_site_id" readonly="1"/>
+                    
+                    <!-- <field name="partner_id" attrs="{'invisible': [('project_id', 'not in',[58, 57])],'readonly': [('project_id', '=', 57)]}"/>
+                    <field name="host_site_id" domain="[('youth_company_type', '=', 'Host Site')]"  attrs="{'invisible': [('project_id', 'not in', [58, 65, 54, 57])], 'readonly': [('project_id', '=', 57)]}"/> -->
+                    
+                    <!-- Resignation-->
+                    <field name="resignation_date" attrs="{'invisible': [('project_id', '!=', 64)]}"/>
+                    <field name="reason_for_resignation" attrs="{'invisible': [('project_id', '!=', 64)]}"/>
+                    <field name="resignation_letter" attrs="{'invisible': [('project_id', '!=', 64)]}"/>
+                    
+                    
+                    <field name="issue_priority" attrs="{'invisible': [('project_id', '!=',58)]}"/>
+                    <field name="issue_reporter_id" attrs="{'invisible': [('project_id', '!=',58)]}"/>
+                    <field name="issue_date_closed" attrs="{'invisible': [('project_id', '!=',58)]}" readonly="1"/>
+                    <!--<field name="issue_type" attrs="{'invisible': [('project_id', '!=', 4)]}"/>
+                    <field name="matter_details" attrs="{'invisible': [('project_id', '!=', 4)]}"/>-->
+                    <span class="o_form_label o_td_label" name="address_name" attrs="{'invisible': [('project_id', '!=', 62)]}"><b>Address</b></span>
+                    <div class="o_address_format" attrs="{'invisible': [('project_id', '!=', 62)]}">
+                      <field name="street" placeholder="Street..." class="o_address_street"/>
+                      <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                      <field name="city" placeholder="City" class="o_address_city"/>
+                      <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"/>
+                      <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                      <div name="partner_address_country" class="d-flex justify-content-between">
+                          <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                      </div>
+                    </div>
+                    <field name="cohorts_ids" widget="many2many_tags" attrs="{'invisible': [('project_id', '!=', 62)]}" invisible="1"/>
+                    <field name="cohorts_ids" widget="many2many_tags" attrs="{'invisible': [('project_id', '!=', 55)]}"/>
+                    <field name="journey_session_id" attrs="{'invisible': [('project_id', '!=', 55)]}"/>
+                    <field name="session_link" attrs="{'invisible': [('project_id', '!=', 55)]}"/>
+                    <field name="session_type" attrs="{'invisible': [('project_id', '!=', 55)]}"/>
+                    <field name="session_deadline" attrs="{'invisible': [('project_id', '!=', 55)]}"/>
+                    <field name="female_ownership" digits="[16, 2]" attrs="{'invisible': [('project_id', '!=', 62)]}"/>
+                    <field name="bee_level" attrs="{'invisible': [('project_id', '!=', 62)]}"/>
+                    <field name="business_size" attrs="{'invisible': [('project_id', '!=', 62)]}"/>
+                    <field name="sector_id" attrs="{'invisible': [('project_id', '!=', 62)]}"/>
+                  </field>
+                  
+                  <!-- Daily Register Fields-->
+                <field name="tag_ids" position="attributes">
+                  <attribute name="invisible">1</attribute>
+                </field>
+                  
+                <field name="user_ids" position="after">
+                <!--<field name="tag_ids" position="replace">-->
+                    <field name="daily_type" attrs="{'invisible': [('project_id', '!=',56)]}"/>
+                    <field name="daily_attendance_status" attrs="{'invisible': [('project_id', '!=',56)]}"/>
+                    <field name="daily_supervisor_id" attrs="{'invisible': [('project_id', '!=',56)]}"/>
+                    <!--<field name="daily_start_time" position="attributes">-->
+                    <!--    <attribute name="widget">time</attribute>-->
+                    <!--    <attribute name="attrs">{'invisible': [('project_id', '!=',56)]}</attribute>-->
+                    <!--</field>-->
+                    <!--<field name="daily_end_time" position="attributes">-->
+                    <!--<attribute name="widget">time</attribute>-->
+                    <!--<attribute name="attrs">{'invisible': [('project_id', '!=',56)]}</attribute>-->
+                    <!--</field>-->
+                    <field name="daily_start_time" widget="time" attrs="{'invisible': [('project_id', '!=',56)]}"/>
+                    <field name="daily_end_time" widget="time" attrs="{'invisible': [('project_id', '!=',56)]}"/>
+                    
+                    <field name="daily_duties" attrs="{'invisible': [('project_id', '!=',56)]}"/>
+                 </field>
+                 
+                 <!-- Attendance Register -->
+                 <page name="description_page" position="attributes">
+                   <attribute name="string">Issue Details</attribute>
+                   <attribute name="attrs">{'invisible': [('project_id','!=',58)]}</attribute>
+                 </page>
+                <page name="description_page" position="after">
+                    <page name="register_issue_tasks" string="Register Issues" attrs="{'invisible': [('project_id', '!=', 63)]}">
+                            <field name="register_issue_timesheet_ids">
+                                <tree editable="bottom" default_order="date asc">
+                                    <field name="employee_id" widget="many2one_avatar_employee"/>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="daily_start_time"/>
+                                    <field name="daily_end_time"/>
+                                    <field name="date" invisible="1"/>
+                                    <field name="daily_attendance_status"/>
+                                    <field name="daily_leave_form"/>
+                                    <field name="has_register_issues"/>
+                                    <field name="unit_amount" widget="float_time"/>
+                                </tree>
+                            </field>
+                    </page>
+                </page>
+                
+                <!-- Manage Host Site Visits -->
+                 <page name="description_page" position="after">
+                    <page name="host_site_visits" string="Youth Visit Tasks" attrs="{'invisible': [('project_id', '!=', 57)]}">
+                        <group>
+                            <field name="youth_visit_task_ids">
+                                <tree string="Youth Tasks">
+                                    <field name="name"/>
+                                    <field name="employee_id"/>
+                                    <field name="stage_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                    
+                </page>
+                
+                  <field name="project_id" position="replace">
+                    <field name="project_id" required="1" domain="[('active', '=', True), ('company_id', '=', company_id)]" attrs="{'readonly': [('project_id', 'in',[10,68])]}"/>
+                    <field name="site_visit_date" string="Date" attrs="{'invisible': [('project_id', '!=', 68),('project_id', '!=', 24)]}"/>
+                    <!-- <field name="host_site_name_id" string="Host Site" attrs="{'invisible': [('project_id', '!=', 68),('project_id', '!=', 24)]}"/> -->
+                  </field>
+                  
+                  <!--<field name="user_id" position="replace">-->
+                  <!--   <field name="user_id" class="o_task_user_field" domain="[('share', '=', False)]" attrs="{'invisible': ['|',('project_id', '=',1),('project_id', '=',3)]}"/>-->
+                  <!--</field>-->
+                    
+                  <field name="date_deadline" position="replace">
+                    <field name="date_deadline" attrs="{'invisible': ['|',('is_closed', '=', True),('project_id', 'in',[56,10,68,13,24])]}"/>
+                    <field name="rsa_id_number" attrs="{'invisible': [('project_id', '!=',67)]}"/>
+                    <field name="email_from" string="Email" attrs="{'invisible': [('project_id', 'not in', [62,67])]}"/>
+                    <field name="partner_phone" string="Mobile" attrs="{'invisible': [('project_id', '!=',67)]}"/>
+                    <field name="daily_leave_form" string="Leave Form" attrs="{'invisible': [('project_id', 'not in', [56,67])]}"/>
+                    
+                    <field name="has_register_issues" attrs="{'invisible': [('project_id', '!=',56)]}" readonly="1"/>
+                    <field name="has_approved" attrs="{'invisible': [('project_id', 'not in', [66, 63])]}"/>
+                    <field name="has_declined" attrs="{'invisible': [('project_id', 'not in', [66, 63])]}"/>
+                    <field name="register_issue_task_id" attrs="{'invisible': [('project_id', '!=',66)]}" readonly="1"/>
+                    <field name="ticket_id" readonly="1" attrs="{'invisible': [('project_id', 'not in', [66,58, 62,67, 65, 64, 63, 54, 24, 55, 57])]}"/>
+                    <field name="call_type" attrs="{'invisible': [('project_id', '!=', 55)]}"/>
+                  </field>
+                  
+                  <field name="parent_id" position="replace">
+                    <field name="parent_id" domain="[('parent_id', '=', False)]" attrs="{'invisible' : [('parent_id', '=', False)]}"/>
+                  </field>
+                  
+                  
+                    <page name="sub_tasks_page" position="replace">
+                    <page name="register_days" string="Register Days" attrs="{'invisible': [('project_id', '!=', 10)]}">
+                      <field name="child_ids" nolabel="1">
+                        <tree editable="bottom" create="false" default_order="register_day" decoration-danger="stage_id == False" decoration-success="stage_id != False">
+                          <field name="is_closed" invisible="1"/>
+                          <field name="name" readonly="1" invisible="1"/>
+                          <field name="register_day" readonly="1"/>
+                          <!--<field name="user_id" optional="hide" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" widget="many2one_avatar_user"/>-->
+                          <field name="project_id" optional="hide" readonly="1"/>
+                          <field name="company_id" optional="hide" groups="base.group_multi_company" readonly="1"/>
+                          <field name="stage_id" string="Status"/>
+                          <field name="date_last_stage_update" optional="hide" readonly="1"/>
+                          <!--<field name="is_closed" invisible="1"/>
+                          <field name="name" readonly="1" invisible="1"/>
+                          <field name="daily_start_time"/>
+                          <field name="daily_end_time"/>
+                          <field name="duration"/>
+                          <field name="register_day" optional="hide" readonly="1"/>
+                          <field name="user_id" optional="hide" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}" widget="many2one_avatar_user"/>
+                          <field name="project_id" optional="hide" readonly="1"/>
+                          <field name="company_id" optional="hide" groups="base.group_multi_company" readonly="1"/>
+                          <field name="stage_id" string="Status"/>
+                          <field name="date_last_stage_update" optional="hide" readonly="1"/>-->
+                          <field name="write_uid" optional="hide" widget="many2one_avatar_user" readonly="1"/>
+                        </tree>
+                      </field>
+                    </page>
+                  </page>
+                  
+                    <page name="description_page" position="before">
+                        <page name="site_visit_test" string="Site Visit New" attrs="{'invisible': [('project_id', '!=',68)]}">
+                          <group>
+                              <field name="visit_type" attrs="{'required': [('project_id', '=', 68)]}"/>
+                              
+                              <!-- Normal Visit -->
+                              
+                              <field name="type_of_visit" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              <field name="plans_after_yes" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              <field name="registers_sent" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              <field name="things_learnt_this_month" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              <field name="main_goals_for_month" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              <field name="discussed_goals" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              <field name="why_not_discussed_goals" attrs="{'invisible': [('discussed_goals', '!=', 'No')],'required' : [('discussed_goals', '=', 'No')]}"/>
+                              <field name="is_studying" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              <field name="studying_what" attrs="{'invisible': ['|', ('is_studying', '!=', 'Yes'),                ('visit_type', '!=', 'Normal Host Site Visit')], 'required': [('is_studying', '=', 'Yes')]}"/>
+                              
+                              <field name="receive_whatsapp" attrs="{'invisible' : [('visit_type', '!=' , 'Normal Host Site Visit')]}"/>
+                              
+                              <field name="saved_hotline_number" attrs="{'invisible': ['|', ('receive_whatsapp', '!=', 'No'), ('visit_type', '!=', 'Normal Host Site Visit')],                'required': [('receive_whatsapp', '=', 'No')]}"/>
+                
+                              <field name="whatsapp_number" attrs="{'invisible': ['|', ('receive_whatsapp', '!=', 'No'), ('visit_type', '!=', 'Normal Host Site Visit')],                'required': [('receive_whatsapp', '=', 'No')]}"/>
+                
+                              <field name="have_new_cell_number" attrs="{'invisible': [('visit_type', '!=', 'Normal Host Site Visit')]}"/>
+                
+                              <field name="new_number" attrs="{'invisible': ['|', ('have_new_cell_number', '!=', 'Yes'), ('visit_type', '!=', 'Normal Host Site Visit')],                'required': [('have_new_cell_number', '=', 'Yes')]}"/>
+                
+                              <field name="has_new_email" attrs="{'invisible': [('visit_type', '!=', 'Normal Host Site Visit')]}"/>
+                
+                              <field name="new_email" attrs="{'invisible': ['|', ('has_new_email', '!=', 'Yes'), ('visit_type', '!=', 'Normal Host Site Visit')],                'required': [('has_new_email', '=', 'Yes')]}"/>
+                
+                              
+                              <!--Induction-->
+                              <field name="goals" attrs="{'invisible' : [('visit_type', '!=' , 'Induction')]}"/>
+                              <field name="add_learnings" attrs="{'invisible' : [('visit_type', '!=' , 'Induction')]}"/>
+                              <field name="good_employee" attrs="{'invisible' : [('visit_type', '!=' , 'Induction')]}"/>
+                              <field name="joint_responsibility" attrs="{'invisible' : [('visit_type', '!=' , 'Induction')]}"/>
+                              <field name="nowork_nopay" attrs="{'invisible' : [('visit_type', '!=' , 'Induction')]}"/>
+                              
+                              <!-- Exit Session-->
+                              <field name="future_employment" attrs="{'invisible' : [('visit_type', '!=' , 'Exit Session')]}"/>
+                              <field name="remain_employed" attrs="{'invisible' : [('visit_type', '!=' , 'Exit Session')]}"/>
+                              <field name="future_absorption" attrs="{'invisible' : [('visit_type', '!=' , 'Exit Session')]}"/>
+                              <field name="cv" attrs="{'invisible' : [('visit_type', '!=' , 'Exit Session')]}"/>
+                              <field name="contract_yaw" attrs="{'invisible' : [('visit_type', '!=' , 'Exit Session')]}"/>
+                              
+                              <!-- Celphone Distribution -->
+                              <field name="yes_phone" attrs="{'invisible' : [('visit_type', '!=' , 'Cellphone Distribution')]}"/>
+                              <field name="online_learning" attrs="{'invisible' : [('visit_type', '!=' , 'Cellphone Distribution')]}"/>
+                              <field name="engage_yesapp" attrs="{'invisible' : [('visit_type', '!=' , 'Cellphone Distribution')]}"/>
+                              <field name="mandatory_apps" attrs="{'invisible' : [('visit_type', '!=' , 'Cellphone Distribution')]}"/>
+                              
+                              <!-- Questions for Supervisors -->
+                              <field name="yes_supervisor_app" attrs="{'invisible' : [('visit_type', '!=' , 'Questions for Supervisors')]}"/>
+                              <field name="yaw_registers" attrs="{'invisible' : [('visit_type', '!=' , 'Questions for Supervisors')]}"/>
+                              <field name="work_experience" attrs="{'invisible' : [('visit_type', '!=' , 'Questions for Supervisors')]}"/>
+                              
+                              <!-- Graduation Session -->
+                              <field name="rate_experience" attrs="{'invisible' : [('visit_type', '!=' , 'Graduation Session')]}"/>
+                              <field name="prepared" attrs="{'invisible' : [('visit_type', '!=' , 'Graduation Session')]}"/>
+                              <field name="share_contract" attrs="{'invisible' : [('visit_type', '!=' , 'Graduation Session')]}"/>
+                
+                          </group>
+                        </page>
+                          <page name="host_site_tasks" string="Linked Host Site Partners" attrs="{'invisible': ['|', ('company_type', '!=', 'Partner'), ('project_id', '!=', 62)]}" context="{'default_project_id': 62}">
+                              <field name="host_site_task_ids">
+                                <tree string="Host Site Partner">
+                                  <field name="name"/>
+                                </tree>
+                              </field>
+                        </page>
+                     </page>
+                    <xpath expr="//field[@name='timesheet_ids']/tree" position="replace">
+                        <tree editable="bottom" default_order="date asc">
+                            <field name="date" invisible="1"/>
+                            <field name="employee_id" widget="many2one_avatar_employee"/>
+                            <field name="name" string="Duties"/>
+                            <field name="date"/>
+                            <field name="daily_start_time"/>
+                            <field name="daily_end_time"/>
+                            <field name="daily_attendance_status"/>
+                            <field name="daily_leave_form"/>
+                            <field name="has_register_issues"/>
+                            <field name="unit_amount" string="Duration" widget="float_time"/>
+                        </tree>
+                    </xpath>
+
+                    <xpath expr="//page[@id='timesheets_tab']" position="attributes">
+                        <attribute name="attrs">{'invisible': [('project_id','not in',[56,66])]}</attribute>
+                    </xpath>
+            </field>
+        </record>
+        <record id="youthwork_project_task_form_view2" model="ir.ui.view">
+            <field name="name">project.task_youtwork_view2</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="sale_project.view_sale_project_inherit_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_line_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sale_line_id'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_create_weekly_register_task_missing_task" model="ir.actions.server">
+            <field name="name">Create Weekly Register Task</field>
+            <field name="model_id" ref="project.model_project_task"/>
+            <field name="state">code</field>
+            <field name="code">
+                env['project.task'].create_weekly_register_task_missing_task()
+            </field>
+        </record>
+
+
+        <menuitem id="menu_project_task_create_weekly_register_task"
+          name="Create Weekly Register Task"
+          parent="project.menu_main_pm"
+          action="action_create_weekly_register_task_missing_task"
+          sequence="10"/>
+
+    </data>
+</odoo>

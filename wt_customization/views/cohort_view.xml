@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Form view -->
+        <record id="youthwork_cohort_form_view" model="ir.ui.view">
+            <field name="name">cohort.form.view</field>
+            <field name="model">cohort.cohort</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group string="Cohort Details" colspan="4">
+                            <group>
+                                <field name="name"/>
+                                <field name="payroll_type"/>
+                                <field name="organization_type"/>
+                                <field name="placement_type"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="age_range"/>
+                                <field name="yes_phones"/>
+                            </group>
+                            <group>
+                                <field name="total_allocation"/>
+                                <field name="cohort_buffer"/>
+                                <field name="cost_centre"/> 
+                            </group>
+                            <group>
+                                <field name="compliance_target" readonly="1"/>
+                                <field name="active" readonly="1"/>
+
+                            </group>
+                        </group>
+
+                        <group string="Sector and Requirements" colspan="4">
+                            <group>
+                                <field name="sector_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="male_requirement" widget="percentage" attrs="{'decimals': 2}"/>
+                                <field name="female_requirement" widget="percentage" attrs="{'decimals': 2}"/>
+                                <field name="disability_requirement" widget="percentage" attrs="{'decimals': 2}"/>
+                            </group>
+                        </group>
+
+                        <group string="Placement Details" colspan="4">
+                            <group>
+                                <field name="extra_requests"/>
+                                <field name="internal_placements"/>
+                                <field name="external_placements"/>
+                                <field name="geographical_placemeent"/>
+                                <field name="notes"/>
+                            </group>
+                        </group>
+
+                        <group string="Funding and Salary" colspan="4">
+                            <group>
+                                <field name="funder_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="youth_salary"/>
+                            </group>
+                        </group>
+
+                        <group string="Employment and Contract" colspan="4">
+                            <group>
+                                <field name="employment_details" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="contract_type"/>
+                                <field name="journey_id" options="{'no_open': True, 'no_create': True}"/>
+                            </group>
+                        </group>
+
+                        <group string="Cohort Buffer and Absorption" colspan="4">
+                            <group>
+                                <field name="replacement_enabled"/>
+                            </group>
+                            <group>
+                                <field name="drop_off_replacement_target" widget="float" attrs="{'decimals': 2}"/>
+                                <field name="drop_off_replacement" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="absorption_target_yes" widget="float" attrs="{'decimals': 2}"/>
+                                <field name="absorption_needed_yes" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="absorption_target_funder" widget="float" attrs="{'decimals': 2}"/>
+                                <field name="absorption_needed_funder" readonly="1"/>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree view -->
+        <record id="youthwork_cohort_tree_view" model="ir.ui.view">
+            <field name="name">cohort.tree.view</field>
+            <field name="model">cohort.cohort</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="payroll_type"/>
+                    <field name="placement_type"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="total_allocation"/>
+                    <field name="cohort_buffer"/>
+                    <field name="funder_id"/>
+                    <field name="active"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="youthwork_cohort_action" model="ir.actions.act_window">
+            <field name="name">Cohort</field>
+            <field name="res_model">cohort.cohort</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add a new cohort
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="cohort_root" 
+            name="Cohort" 
+            action="youthwork_cohort_action"  
+            sequence="10"/>
+
+        <menuitem id="cohort" 
+            name="Cohort" 
+            action="youthwork_cohort_action"
+            parent="cohort_root"  
+            sequence="10"/>
+    </data>
+</odoo>

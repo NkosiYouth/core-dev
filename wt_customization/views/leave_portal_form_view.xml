@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="wt_youth_leave_form" name="Youth Leave Form">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_title o_colored_level pt0 pb0" data-vcss="001"
+                    data-snippet="s_title" data-name="Title" style="background-image: none;">
+                    <div class="s_allow_columns container">
+                        <h2 style="text-align: center;">Leave Form<br /></h2>
+                    </div>
+                </section>
+                <div class="container">
+                    <form action="/leave/form" method="post" enctype="multipart/form-data" class="o_mark_required">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                            <div data-visibility-condition="" data-visibility-between=""
+                                class="s_website_form_field mb-3 col-12 s_website_form_model_required"
+                                data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px" for="oaafppghcyfc">
+                                        <span class="s_website_form_label_content">Time Off Type</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <t t-set="holiday_status_ids" t-value="request.env['hr.leave.type'].sudo().search([])" />
+                                        <select class="form-select s_website_form_input" name="holiday_status_id" id="o37nmfmmbhdl" style="">
+                                            <t t-foreach="holiday_status_ids" t-as="time_off_type">
+                                                <option t-att-value="time_off_type.id" selected="selected">
+                                                    <t t-esc="time_off_type.display_name" />
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required from_date"
+                            data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px" for="oaafppghcyfc">
+                                        <span class="s_website_form_label_content">From Date</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input type="date"
+                                            class="form-control s_website_form_input"
+                                            name="date_from" id="date_from" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required to_date"
+                            data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px; text-align:end;" for="oaafppghcyfc">
+                                        <span class="s_website_form_label_content">To Date</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input type="date"
+                                            class="form-control s_website_form_input"
+                                            name="date_to" id="date_to"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required d-none halfdaydate"
+                            data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px;" for="oaafppghcyfc">
+                                        <span class="s_website_form_label_content">Date</span>
+                                        <span class="s_website_form_mark"> *</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input type="date"
+                                            class="form-control s_website_form_input"
+                                            name="halfday_date" id="halfday_date"  t-att-value="datetime.date.today()"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required d-none date_period"
+                            data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <div class="col-sm">
+                                        <select class="form-select s_website_form_input" name="day_period" id="day_period" style="">
+                                            <option value="am">Morning</option>
+                                            <option value="pm">Afternoon</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-visibility-condition="" data-visibility-between=""
+                            class="s_website_form_field mb-3 col-12" data-type="many2one"
+                                data-name="Field">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label
+                                            class="col-form-label col-sm-auto s_website_form_label "
+                                            style="width: 200px" for="o37nmfmmbhdl">
+
+
+                                            <span class="s_website_form_label_content">User</span>
+                                            <span class="s_website_form_mark"> *</span>
+
+                                        </label>
+                                        <div class="col-sm">
+
+                                            <t t-set="hr_issue_youths"
+                                                t-value="request.env['hr.employee'].sudo().search([])" />
+                                            <select class="form-select s_website_form_input"
+                                                name="employee_id" id="o37nmfmmbhdl"
+                                                style="" required="">
+                                                <option value="" selected="selected">Select</option>
+                                                <t t-foreach="hr_issue_youths" t-as="youth">
+                                                    <option t-att-value="youth.id"
+                                                        >
+                                                        <t t-esc="youth.name" />
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required duration"
+                            data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px" for="oaafppghcyfc">
+                                        <span class="s_website_form_label_content">Duration</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input type="number"
+                                            class="form-control s_website_form_input"
+                                            name="duration" id="duration" t-att-value="0" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required duration"
+                            data-type="char" data-name="Field"></div>
+                        </div>
+                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required"
+                            data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px" for="oaafppghcyfc">
+                                        <span class="s_website_form_label_content">Half Day</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <input type="checkbox"
+                                            class=" s_website_form_input"
+                                            name="is_halfday" id="is_halfday" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 col-6 s_website_form_model_required"></div>
+                        </div>
+                        <div class="s_website_form_rows row s_col_no_bgcolor">
+                            <div data-visibility-condition="" data-visibility-between="" class="s_website_form_field mb-3 s_website_form_model_required"
+                            data-type="char" data-name="Field">
+                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                                    <label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px" for="oaafppghcyfc">
+                                        <span class="s_website_form_label_content">Description</span>
+                                    </label>
+                                    <div class="col-sm">
+                                        <textarea id="description" name="description" rows="4" cols="50"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="clearfix">
+                                <button type="submit" class="btn btn-primary float-left mb32 btn_forward_checkout">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
